@@ -61,6 +61,6 @@ else
 echo "sudo privileges active/not-onhold!"
 echo "systemsettings available/executable!"
 echo "your bashrc file readable and writable!" 
-rm /home/david/MySystemIsSECURED &> /dev/null
+rm /home/$USERTOUNSECURE/MySystemIsSECURED &> /dev/null
 fi
 
