@@ -1,7 +1,7 @@
 #!/bin/bash
 #Creator: David Parra-Sandoval
 #Date: 09/29/2023
-#Last Modified: 10/03/2023
+#Last Modified: 10/14/2023
 clear
 
 echo "Select My Idea of, Linux Security!"
@@ -15,8 +15,8 @@ exit 1
 fi
 whoami > MySystemIsSECURED  
 THEUSER=`whoami`
-SUPERUSER=$(sudo cat /etc/sudoers | grep "wheel ALL=(ALL) ALL")
-REPLACE="# %wheel ALL=(ALL) ALL"
+SUPERUSER=$(sudo cat /etc/sudoers | grep "%wheel ALL=(ALL:ALL) ALL")
+REPLACE="# %wheel ALL=(ALL:ALL) ALL"
 sudo chmod 000 /usr/bin/systemsettings
 chmod 400 /home/$THEUSER/.bashrc
 sudo sed -i "s/$SUPERUSER/$REPLACE/" /etc/sudoers
@@ -40,8 +40,8 @@ n|N|No|NO) echo re-select!
 esac
 done
 done
-SUPERUSER=$(cat /etc/sudoers | grep "wheel ALL=(ALL) ALL")
-REPLACE=" %wheel ALL=(ALL) ALL"
+SUPERUSER=$(cat /etc/sudoers | grep "%wheel ALL=(ALL:ALL) ALL")
+REPLACE=" %wheel ALL=(ALL:ALL) ALL"
 sed -i "s/$SUPERUSER/$REPLACE/" /etc/sudoers
 chmod 755 /usr/bin/systemsettings
 chmod 644 /home/$USERTOUNSECURE/.bashrc
