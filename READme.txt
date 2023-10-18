@@ -2,6 +2,14 @@ This script will secure your linux box/system/computer from unauthorized
 usage, by disabling sudo usage; your systemsettings and your bashrc. This script
 was written in Arch Linux with the plasma5 desktop environment.
 
+UPDATE! 10/17/2023
+The secure.sh script will work with the three most used
+Desktop Environments:[DE] KDE/plasma | xfce4 | Gnome.
+...still working on it, but if your the only user it will work!
+My idea is to make this script able to work with multiple users
+on the system, because right now if you do have multiple accounts/users
+all of them will be blocked/secured some what....
+
 UPDATE! 10/14/2023
 UPDATED the secure.sh script witches fucking with it the ALL=(ALL:ALL)
 thats it!!

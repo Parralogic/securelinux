@@ -1,7 +1,7 @@
 #!/bin/bash
 #Creator: David Parra-Sandoval
 #Date: 09/29/2023
-#Last Modified: 10/14/2023
+#Last Modified: 10/17/2023
 clear
 
 echo "Select My Idea of, Linux Security!"
@@ -17,7 +17,14 @@ whoami > MySystemIsSECURED
 THEUSER=`whoami`
 SUPERUSER=$(sudo cat /etc/sudoers | grep "%wheel ALL=(ALL:ALL) ALL")
 REPLACE="# %wheel ALL=(ALL:ALL) ALL"
+if [[ $XDG_SESSION_DESKTOP = KDE ]]; then
 sudo chmod 000 /usr/bin/systemsettings
+elif [[ $XDG_SESSION_DESKTOP = GNOME ]]; then
+sudo chmod 000 /usr/bin/gnome-control-center
+elif [[ $XDG_SESSION_DESKTOP = XFCE ]]; then
+sudo chmod 000 /usr/bin/xfce4-settings-manager
+sudo chmod 000 /usr/bin/xfce4-session-settings
+fi
 chmod 400 /home/$THEUSER/.bashrc
 sudo sed -i "s/$SUPERUSER/$REPLACE/" /etc/sudoers
 break
@@ -43,7 +50,14 @@ done
 SUPERUSER=$(cat /etc/sudoers | grep "%wheel ALL=(ALL:ALL) ALL")
 REPLACE=" %wheel ALL=(ALL:ALL) ALL"
 sed -i "s/$SUPERUSER/$REPLACE/" /etc/sudoers
+if [[ $XDG_SESSION_DESKTOP = KDE ]]; then
 chmod 755 /usr/bin/systemsettings
+elif [[ $XDG_SESSION_DESKTOP = GNOME ]]; then
+chmod 755 /usr/bin/gnome-control-center
+elif [[ $XDG_SESSION_DESKTOP = XFCE ]]; then
+chmod 755 /usr/bin/xfce4-settings-manager
+chmod 755 /usr/bin/xfce4-session-settings
+fi
 chmod 644 /home/$USERTOUNSECURE/.bashrc
 break
 ;;
