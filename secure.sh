@@ -1,7 +1,7 @@
 #!/bin/bash
 #Creator: David Parra-Sandoval
 #Date: 09/29/2023
-#Last Modified: 12/30/2023
+#Last Modified: 04/08/2024
 clear
 
 echo "Select My Idea of, Linux Security!"
@@ -13,21 +13,32 @@ echo "running as root!!"
 echo "only run this selection as sudo user!"
 exit 1
 fi
+
 whoami > MySystemIsSECURED  
 THEUSER=`whoami`
-#SUPERUSER=$(sudo cat /etc/sudoers | grep "%wheel ALL=(ALL:ALL) ALL")
+
+if [[ $XDG_SESSION_DESKTOP = KDE ]]; then
+SUPERUSER=$(sudo cat /etc/sudoers | grep "%wheel ALL=(ALL:ALL) ALL")
+elif [[$XDG_SESSION_DESKTOP = zorin ]]; then
+SUPERUSER=$(sudo cat /etc/sudoers | grep ALL | grep sudo) #ZORIN
+elif [[ $XDG_SESSION_DESKTOP = XFCE ]]; then
 SUPERUSER=$(sudo cat /etc/sudoers | grep wheel | head -2 | tail -1)
-REPLACE="# %wheel ALL=(ALL:ALL) ALL"
+fi
+
+REPLACE="# %sudo ALL=(ALL:ALL) ALL"
+
 if [[ $XDG_SESSION_DESKTOP = KDE ]]; then
 sudo chmod 000 /usr/bin/systemsettings
-elif [[ $XDG_SESSION_DESKTOP = GNOME ]]; then
+elif [[ $XDG_SESSION_DESKTOP = zorin ]]; then
 sudo chmod 000 /usr/bin/gnome-control-center
 elif [[ $XDG_SESSION_DESKTOP = XFCE ]]; then
 sudo chmod 000 /usr/bin/xfce4-settings-manager
 sudo chmod 000 /usr/bin/xfce4-session-settings
 fi
+
 chmod 400 /home/$THEUSER/.bashrc
 sudo chown root:root /home/$THEUSER/{Downloads,Documents,Templates,Videos,Pictures,Vaults,Music}
+sudo chmod 000 /home/$THEUSER/{Downloads,Documents,Templates,Videos,Pictures,Vaults,Music}
 sudo sed -i "s/$SUPERUSER/$REPLACE/" /etc/sudoers
 break
 ;;
@@ -49,19 +60,27 @@ n|N|No|NO) echo re-select!
 esac
 done
 done
-#SUPERUSER=$(cat /etc/sudoers | grep "%wheel ALL=(ALL:ALL) ALL")
+
+if [[ $XDG_SESSION_DESKTOP = KDE ]]; then
+SUPERUSER=$(cat /etc/sudoers | grep "%wheel ALL=(ALL:ALL) ALL")
+elif [[ $XDG_SESSION_DESKTOP = XFCE ]]; then
 SUPERUSER=$(sudo cat /etc/sudoers | grep wheel | head -2 | tail -1)
-REPLACE=" %wheel ALL=(ALL:ALL) ALL"
+elif [[ $XDG_SESSION_DESKTOP = zorin ]]; then
+SUPERUSER=$(sudo cat /etc/sudoers | grep ALL | grep sudo) #ZORIN
+fi
+
+REPLACE=" %sudo ALL=(ALL:ALL) ALL"
 sed -i "s/$SUPERUSER/$REPLACE/" /etc/sudoers
 if [[ $XDG_SESSION_DESKTOP = KDE ]]; then
 chmod 755 /usr/bin/systemsettings
-elif [[ $XDG_SESSION_DESKTOP = GNOME ]]; then
+elif [[ $XDG_SESSION_DESKTOP = zorin ]]; then
 chmod 755 /usr/bin/gnome-control-center
 elif [[ $XDG_SESSION_DESKTOP = XFCE ]]; then
 chmod 755 /usr/bin/xfce4-settings-manager
 chmod 755 /usr/bin/xfce4-session-settings
 fi
-sudo chown $USERTOUNSECURE:users /home/$USERTOUNSECURE/{Downloads,Documents,Templates,Videos,Pictures,Vaults,Music}
+sudo chown $USERTOUNSECURE:david /home/$USERTOUNSECURE/{Downloads,Documents,Templates,Videos,Pictures,Vaults,Music}
+chmod 700 /home/$USERTOUNSECURE/{Downloads,Documents,Templates,Videos,Pictures,Vaults,Music}
 chmod 644 /home/$USERTOUNSECURE/.bashrc
 break
 ;;

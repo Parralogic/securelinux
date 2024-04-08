@@ -2,6 +2,10 @@ This script will secure your linux box/system/computer from unauthorized
 usage, by disabling sudo usage; your systemsettings and your bashrc. This script
 was written in Arch Linux with the plasma5 desktop environment.
 
+UPDATE! 04/08/2028
+Slightly modified the script, try it out. Just modify the XDG_SESSION_DESKTOP=KDE
+for your distribution, by running "env" in your terminal, and maybe the sudo cat /etc/sudoers | grep "%wheel ALL=(ALL:ALL) ALL" command.
+
 UPDATE! 12/30/2023
 The secure script will now protect your Home forder sub-folders, still need to
 modify the script so that all your files in the sub-folders are secured; with a
